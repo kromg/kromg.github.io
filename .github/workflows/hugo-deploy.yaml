@@ -19,28 +19,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true  # CRITICAL: This pulls in your theme if it's a submodule
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: recursive  # CRITICAL: This pulls in your theme and any nested submodules
+          fetch-depth: 0         # Fetch all history for .GitInfo and .Lastmod
 
-      # 2. Setup Hugo environment
+      # 2. Update submodules to ensure they're current
+      - name: Update submodules
+        run: git submodule update --init --recursive
+
+      # 3. Setup Hugo environment
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest' # Use a specific version or 'latest'
           extended: true
 
-      # 3. Build the Hugo site
+      # 4. Build the Hugo site
       - name: Build Site
         run: hugo --minify
 
-      # 4. Upload artifact for GitHub Pages deployment
+      # 5. Upload artifact for GitHub Pages deployment
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public # Hugo's default output directory
 
-      # 5. Deploy to GitHub Pages
+      # 6. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
