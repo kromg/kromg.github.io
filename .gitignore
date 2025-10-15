@@ -3,5 +3,3 @@
 /resources/_gen/
 /.hugo_build.lock
 /hugo_stats.json
-# If you have a themes directory, uncomment the following line
-/themes/
