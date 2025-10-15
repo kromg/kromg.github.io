@@ -1,0 +1,16 @@
+<footer class="{{ .Site.Params.background_color_class | compare.Default "bg-black" }} bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+    <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="{{ .Site.Home.Permalink }}" >
+      &copy; {{ with .Site.Copyright | compare.Default .Site.Title }} {{ . | safe.HTML }} {{ now.Format "2006"}} {{ end }}
+    </a>
+
+    <div class="f6 fw4 white-70 dn dib-ns pv2 ph3">
+      Except where otherwise noted, content is licensed under a
+      <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener noreferrer" class="link white-70 hover-white">
+          **CC BY-NC-ND 4.0 International License**
+      </a>.
+  </div>
+
+    <div>{{ partials.IncludeCached "social/follow.html" . }}</div>
+  </div>
+</footer>

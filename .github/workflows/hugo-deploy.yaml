@@ -1,0 +1,45 @@
+name: Build and Deploy Hugo
+
+on:
+  push:
+    branches:
+      - main # Or 'master', depending on your default branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Grant GITHUB_TOKEN write permissions for the deployment step
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      # 1. Checkout the source code
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true  # CRITICAL: This pulls in your theme if it's a submodule
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      # 2. Setup Hugo environment
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest' # Use a specific version or 'latest'
+          extended: true
+
+      # 3. Build the Hugo site
+      - name: Build Site
+        run: hugo --minify
+
+      # 4. Upload artifact for GitHub Pages deployment
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public # Hugo's default output directory
+
+      # 5. Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
