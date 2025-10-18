@@ -18,8 +18,4 @@ Like you, I often feel lost—staring down cryptic errors, wrestling with new te
 
 ## The Logbook
 
-The first official log entries are being finalized and will be posted very soon.
-
-
-***
 
