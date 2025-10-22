@@ -15,5 +15,3 @@ Like you, I often feel lost—staring down cryptic errors, wrestling with new te
 ***You're not lost, we're exploring.***
 
 
-
-
