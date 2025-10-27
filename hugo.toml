@@ -7,4 +7,3 @@ theme = 'ananke'
   name = "About"
   url = "/about/"
   weight = 10 
-# Use a low weight to place it near the beginning, e.g., after Home.
