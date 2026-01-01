@@ -262,6 +262,8 @@ The logging library we just built is a simplified version of *log4b*, a producti
 
 Building *log4b* required applying every modularity pattern we've discussed: small functions, strict use of `local`, a consistent naming scheme, clear separation between public API and private helpers, and a design that allows the library to be sourced safely into any script. It's a case study in treating Bash as a serious development platform.
 
+**Update (January 2026)**: After publishing this post, several readers pointed out a performance issue in the code examples: excessive use of command substitution (`$(...)`) in the helper functions. I've since explored better patterns using name references (`local -n`), which can yield 10-20x performance improvements. If you're interested in learning how to measure and optimize Bash performance systematically, check out the follow-up post: [Benchmarking Bash Scripts: Measuring Real Performance Improvements](/posts/benchmarking-bash-scripts-measuring-performance-improvements/).
+
 ## Key Takeaways
 
 Designing modular Bash isn't about exotic features or clever tricks. It's about discipline and patterns:
