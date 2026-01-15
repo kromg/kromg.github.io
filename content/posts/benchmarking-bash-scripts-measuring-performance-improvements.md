@@ -94,6 +94,9 @@ echo "Duration: $duration seconds"
 The `SECONDS` variable is a shell builtin—it increments automatically, requires no external processes, and provides sufficient precision for most benchmarking tasks. For sub-second precision, you can use `SECONDS` as a decimal: `printf '%.3f' "$SECONDS"` gives you milliseconds. This gives you a number you can compare programmatically or log to a file for trend analysis.
 
 
+{{< signup-cta >}}
+
+
 ### Building a Benchmarking Library
 
 Since benchmarking is a recurring task, it makes sense to extract the pattern into a reusable library. Here's a minimal `benchmark.sh` that encapsulates the measurement logic:
@@ -312,7 +315,11 @@ level=$(_lb_resolve_level "INFO")
 
 Every log call triggered multiple helper functions, each spawning a subshell. 
 Testing revealed throughput of around 500-1,000 log lines per second—acceptable for light logging, but painful for verbose scripts.
-If you work properly, you can probably avoid verbosity in the first place, but, sometimes, you just have to keep records. 
+If you work properly, you can probably avoid verbosity in the first place, but, sometimes, you just have to keep records.
+
+
+{{< signup-cta >}}
+
 
 ### The Refactoring
 

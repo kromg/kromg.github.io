@@ -96,6 +96,10 @@ parse_csv_line "Alice,Developer,Seattle"
 
 By shadowing `IFS` locally, we change the field separator for parsing without affecting how the rest of the script processes strings. This is defensive programming: the function does its job and leaves no trace in the global state.
 
+
+{{< signup-cta >}}
+
+
 ### Single Responsibility: Do One Thing Well
 
 Each function should do one thing and do it well. Consider this example:
@@ -251,6 +255,10 @@ Notice what we've achieved:
 - **Level filtering**: Only messages at or above the configured level are displayed.
 - **Reusability**: Any script can source this library and get the same logging behavior.
 - **No collisions**: The `lb_` prefix keeps our functions isolated.
+
+
+{{< signup-cta >}}
+
 
 ### Step 3: Grow the API Thoughtfully
 
