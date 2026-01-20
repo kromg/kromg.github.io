@@ -1,37 +1,36 @@
 ---
 title: "About Me | The Wayfarer"
-description: "The story of a developer, lost in IT, who found a compass in good practices."
-date: 2025-10-22
+description: "The story of a developer who found a compass in good practices."
+date: 2026-01-20
 slug: about
 ---
 
-## The Wayfarer's Philosophy
+## The Path Through the Fog
 
-This blog, **"Lost In It,"** is born from a shared feeling: the profound sense of being adrift in the boundless, fast-moving ocean of Information Technology. Like many who started this journey out of passion, I’ve often found myself crushed by overwhelming complexity and problems far out of scale. The lack of shared knowledge and quality in our artifacts only deepens this fog.
+This blog, **"Lost In It,"** was born from a common professional reality: in the fast-moving landscape of Information Technology, it is easy to find yourself navigating through thick layers of unnecessary complexity. I spent years wrestling with cryptic errors, scripts and ecosystems that grew into unmanageable monsters—just because they lacked *structure*.
 
-I identify with the philosophy of the **Wayfarer**—not someone with a strict destination, but one who finds the goal in the journey itself, and in **sharing the road** with others.
+Experience has taught me that the goal isn't necessarily a final destination, but the quality of the journey and the resilience of the tools we build along the way.
 
-The "lost" feeling dissipates when we find a reliable compass: **best practices**. By adhering to paths and principles found by those who traversed these swamps and dark forests before us, we don't just survive the journey—we find meaning in it. My mission is to share the maps I've found, one post at a time, to help us all navigate the risks and appreciate the beauty of this wild landscape.
+That feeling of being lost dissipates when you find a reliable compass; usually, this comes in the form of **best practices**. By following the principles discovered by those who traversed these forests before us, we do more than just "get it to work"—we find mastery in it. I’ve spent my time documenting the maps and patterns that actually stand up to production pressure, and I’m here to share them so we can navigate this landscape with confidence and significantly less technical debt.
 
 ***
 
 ## My Journey to Better Code
 
-My professional path, like that of any developer, is paved with code that worked, code that failed, and constant, incremental *Aha!* moments. It wasn't one single revelation, but a continuous realization that what we build is often a mirror of our process.
+My professional path is paved with code that worked, code that failed, and constant, incremental *Aha!* moments. It wasn't one single revelation, but a continuous realization that what we build is a direct mirror of our process.
 
-The most frustrating anti-pattern I’ve encountered isn't a technical error like **code duplication** or violating the **SOLID principles** (though these certainly waste time). It's the simple, painful pattern of **not progressing**—developers not learning from their mistakes and not seeking a better way.
+The most frustrating anti-pattern I’ve encountered isn't a specific technical error like code duplication or violating SOLID principles—though those certainly waste time. It's the simple, painful pattern of **stagnation**: developers repeating the same mistakes because they haven't been shown a better way, or because they've accepted "messy" as the default state for certain tools.
 
 This led me to a simple truth: **we must treat scripting no differently than coding in structured languages.**
 
-Why? Because underestimating the effort required for 'simple' scripts leads to spaghetti code that's impossible to maintain, debug, or change. We start coding for the machine, and we stop **telling a story** to the next developer (or future self) who will read that code. My journey has been about taking the rigorous, developer-first approach learned from complex systems and applying it to the smallest, often overlooked corner of our craft: **Bash scripting.**
+Underestimating the effort required for "simple" scripts leads to spaghetti code that is impossible to maintain, debug, or change. We start coding for the machine, and we stop **telling a story** to the next developer (or our future self). My journey has been about taking the rigorous, developer-first approach learned from complex systems and applying it to the smallest, often overlooked corner of our craft: **Bash scripting.**
 
 ***
 
 ## Sharing the Map: Bash: The Developer's Approach
 
-We often put limits on what we can achieve with Bash, dismissing it as a 'quick and dirty' tool for simple tasks. I'm here to gently push back against that notion. You can do **WAY MORE** than you imagine with Bash.
+We often put limits on what we can achieve with Bash, dismissing it as a "quick and dirty" tool for trivial tasks. I'm here to push back against that notion. You can do **WAY MORE** than you imagine with the shell if you approach it with the right mindset.
 
-This conviction is the driving force behind my book, ***Bash: The Developer's Approach***. It is an exploration of how we can apply fundamental, high-quality software development principles, from **Clean Code** to **SOLID**, directly to shell scripting. It’s about building reliable, testable, and maintainable scripts that stand the test of time and complexity.
+This conviction is the driving force behind my book, ***Bash: The Developer's Approach***. It is an introduction to Bash from the ground up (so if you're completely new to Bash, that book is **also** for you) that keeps an eye on how we can apply fundamental software development principles directly to shell scripting. It’s about building reliable, testable, and maintainable scripts that stand the test of time.
 
-To prove this point—and to provide a practical example of treating Bash as a serious programming language—I developed **log4b**. While no one *needs* a structured logging framework for Bash, the underlying principle is key: **Don't put limits on your capabilities.** Instead, learn and apply the best tools and patterns available, even in the shell. Experience will eventually tell you when it's time to stop and move to another language, but until then: you *can* build it better, now, with a developer's approach.
-```
+To prove this point—and to provide a practical example of treating Bash as a serious programming language—I developed **log4b**. You might think a structured logging framework for Bash is overkill, but the underlying principle is what matters: **never settle for "good enough" when you can build for "resilient."** Experience tells us when it’s time to move to another language, but until then: you can build it better, right now, with a developer's approach.
