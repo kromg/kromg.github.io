@@ -34,7 +34,7 @@ Now we're talking about testing!
 Welcome to the testing jungle, where nothing is defined, and no one agrees on what method to use!
 
 
-{{< signup-cta >}}
+{{< book-hook >}}
 
 
 ## The Testing Conundrum
@@ -142,7 +142,7 @@ The solution isn't to write more elaborate tests. The solution is to **refactor 
 Extract the pure logic. Separate the I/O. Reduce the surface area that touches the outside world. What remains should be small orchestration code that's either obviously correct or easy to verify with a quick manual run.
 
 
-{{< signup-cta >}}
+{{< book-hook >}}
 
 
 ## Pure Functions: The Testing Sweet Spot
