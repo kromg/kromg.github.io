@@ -25,7 +25,7 @@
 
 
       {{ if compare.Ge $section_count (math.Add $n_posts 1) }}
-        <section class="w-100">
+        <section class="w-100 mw8 center">
           <h1 class="f3">{{ lang.Translate "more" }}</h1>
           {{/* Now, range through the next four after the initial $n_posts items. Nest the requirements, "after" then "first" on the outside */}}
           {{ range (collections.First 4 (collections.After $n_posts $section))  }}

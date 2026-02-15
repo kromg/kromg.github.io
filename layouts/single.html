@@ -72,6 +72,22 @@
       {{ partial "comments.html" }}
       </div>
       {{- partials.Include "tags.html" . -}}
+      
+      {{/* Post Navigation Bar */}}
+      <nav class="mt5 mb4 tc">
+        <a href="#" class="f5 no-underline dib white br2 ph3 pv2 mb2 {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "ml2" "mr2" }}" 
+           style="color: rgb(255, 255, 255); background-color: rgb(40, 40, 40); font-weight: 400;">
+          ↑ Top
+        </a>
+        <a href="{{ .Site.BaseURL }}" class="f5 no-underline dib white br2 ph3 pv2 mb2 {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "ml2" "mr2" }}" 
+           style="color: rgb(255, 255, 255); background-color: rgb(40, 40, 40); font-weight: 400;">
+          Home
+        </a>
+        <a href="{{ .Site.BaseURL }}about" class="f5 no-underline dib white br2 ph3 pv2 mb2" 
+           style="color: rgb(255, 255, 255); background-color: rgb(40, 40, 40); font-weight: 400;">
+          About
+        </a>
+      </nav>
     </div>
     {{- if $needs_aside -}}
     <aside class="w-30-l mt6-l">
