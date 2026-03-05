@@ -7,3 +7,6 @@ theme = 'ananke'
   name = "About"
   url = "/about/"
   weight = 10 
+
+[params]
+  favicon = "/favicon.svg"

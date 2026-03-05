@@ -1,0 +1,9 @@
+{{ if .Site.Params.favicon }}
+{{ $favicon := $.Site.Params.favicon }}
+{{ $ext := path.Ext $favicon }}
+{{ if eq $ext ".svg" }}
+<link rel="icon" href="{{ urls.RelURL $favicon }}" type="image/svg+xml" />
+{{ else }}
+<link rel="shortcut icon" href="{{ urls.RelURL $favicon }}" type="image/x-icon" />
+{{ end }}
+{{ end }}
