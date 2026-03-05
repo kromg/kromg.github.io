@@ -62,11 +62,8 @@ run_migrations
 Same logic. Same error handling. But now the structure is *flat*. Each line is a precondition: if it fails, we stop. If it passes, we continue to the next line.
 
 Reading this code is like reading a checklist:
-1. Config file exists? ✓
-2. Config file readable? ✓
-3. DATABASE_URL set? ✓
-4. Database connection works? ✓
-5. Run migrations.
+
+![A bash checklist illustrating the error-first flow](/images/bashlist.png)
 
 The happy path is the left margin. Errors are handled inline, immediately visible next to the condition that triggers them.
 
