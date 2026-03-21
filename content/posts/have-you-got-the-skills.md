@@ -39,7 +39,7 @@ What does "the right way" mean? It means talking to your agent about:
 You'd be surprised how dramatically code quality improves when you simply tell the AI: "Write code that speaks for itself. Prefer descriptive names over comments."
 
 
-{{< signup-cta >}}
+{{< book-hook >}}
 
 
 ## Enter Copilot Agent Skills
@@ -187,7 +187,7 @@ output="$(some_command)" || die "Command failed"
 ````
 
 
-{{< signup-cta >}}
+{{< book-hook >}}
 
 
 
