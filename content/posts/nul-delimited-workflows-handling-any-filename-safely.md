@@ -4,6 +4,7 @@ date: 2026-03-23
 description: "Filenames with spaces are annoying. Filenames with newlines are dangerous. Learn the one delimiter that makes any filename safe to process—and how to use it throughout your pipelines."
 tags: ["bash", "filenames", "security", "best-practices"]
 categories: ["Shell Scripting", "Deep Dive"]
+featured_image: "/images/nul-delimited-cover.png"
 ---
 
 Pop quiz: what characters can appear in a filename on Linux?
