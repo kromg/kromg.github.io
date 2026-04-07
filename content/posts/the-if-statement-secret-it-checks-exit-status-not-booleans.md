@@ -1,6 +1,6 @@
 ---
 title: "The if Statement Secret: It Checks Exit Status, Not Booleans"
-date: 2026-03-21
+date: 2026-04-07
 description: "Bash doesn't have true and false the way other languages do. Understanding that if checks exit status—not boolean values—changes how you write conditionals forever."
 tags: ["bash", "conditionals", "fundamentals", "scripting"]
 categories: ["Shell Scripting", "Counter-Intuitive"]
