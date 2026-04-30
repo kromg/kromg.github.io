@@ -28,7 +28,7 @@ But if you execute the script directly:
 ./script.sh
 ```
 
-Then Linux is asked to execute the file via `execve()`. The very first thing it does is look at the first two bytes. 
+Then the oeprating system is asked to execute the file via `execve()`. The very first thing it does is look at the first two bytes. 
 If they're `0x23 0x21` — the ASCII codes for `#` and `!` — the kernel reads the rest of that first line to find the interpreter path. 
 It then launches that interpreter, passing your script as an argument. 
 At this point, we're back to the first case: the kernel calls `execve()` with whatever's in the shebang line, and the script path. 
