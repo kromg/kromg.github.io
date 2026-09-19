@@ -14,24 +14,24 @@ That book is all about the little things that I would have liked to know when I 
 contraptions that did what they had to do, but were not pleasant to look to (well, not too much). 
 
 One of those contraptions has made it to these days, buried deep down into one of my oldest backups, and I found it while 
-spelunking in search for examples of what _not_ do to in a script. 
+spelunking in search for examples of what _not_ to do in a script. 
 
 I must say, in my defence, that finding it has not been easy: I've always had a taste for well written code, even before 
 I had any idea about what "well written" really means, so it has taken me a while to find something ugly enough to be worty of this
-improvised hall of shame - yet, here we are: a small log rotation script for a Tomcat instance, that's full of thing I wouldn't want 
+improvised hall of shame - yet, here we are: a small log rotation script for a Tomcat instance, that's full of things I wouldn't want 
 to see in a script (I'll attach the whole script at the end of the article so you can contemplate it in all its magnificence). 
 
 We'll dissect it here and enumerate all its sins, solemnly swearing never to repeat those mistakes again. Then, in the following 
-articles of this series, we'll go on and refactor this poor litthe guy, until it will become a nice piece of good quality software, 
+articles of this series, we'll go on and refactor this poor little guy, until it will become a nice piece of good quality software, 
 something we can proudly show to grandma (even though she won't probably understand what's going on).   
 
-Let's take a look at the poor guy, analyzing all the things that we should have avoided. 
+Let's take a look at this critter, analyzing all the things that we should have avoided. 
 
 
 ## \#0 Indenting with tabs
 
-The whole script is indented with tabs - which was the style, at the time. While it looks good in my editor, you can see 
-how ugly it renders when tab gets expanded to 8 chars. Definitely a no. 
+The whole script is indented with tabs - which was the style, at the time. While it looks good when you have tabs set at 2 or 4 characters,
+it becomes rapidly unbearable to look at, if tabs get expanded to 8 chars. Definitely a hard no for me. 
 
 ![Tabs for indent](/images/tab_for_indent.png)
 
@@ -81,7 +81,7 @@ Let's continue.
 ## \#3 Call it first, define it later does **not** work
 
 The script goes on checking a prerequisite. Good! This is wonderful practice: check requirements early, handle errors 
-before they happen. All good, right? Well... 
+before they happen (we've talked about it [here](/posts/error-first-pattern-writing-self-documenting-bash/)). All good, right? Well... 
 
 ```bash
 if [ ! -d "$dirlogs" ]; then 
@@ -90,7 +90,7 @@ if [ ! -d "$dirlogs" ]; then
 fi
 ```
 
-...except if you call a loggin `log` function that has not been defined yet. That's not gonna work, no. 
+...except if you call a logging `log` function that has not been defined yet. That's not gonna work, no. 
 
 The original sin, here, is mixing runtime code with definition code (the functions that follow). 
 
@@ -137,10 +137,13 @@ of _not_ spawning a subshell. If a function like this was called a lot of times,
 
 The `return` statements are equally redundant, and I could have saved 3 lines and a bunch of keystrokes by just avoiding them. 
 
+If we want to be absolutely picky, the `echo -e` could be better substituted by `printf`, which gives us more control on the 
+output, and will not accidentally interpret escape sequences if they were present in the content of the `$line` variable. 
+
 
 ## \#5 Shadowing system command names - bad and dangerous
 
-What follow are a series of logging functions: 
+What follows is a series of logging functions: 
 
 ```bash
 info() {
@@ -154,7 +157,7 @@ info() {
 Try to avoid clashing with system command names. 
 
 
-## \#6 Inconsistent redirection, more redundancy
+## \#6 Inconsistent redirection, wrong parameter expansion, more redundancy
 
 ```bash
 is_in_use() {
@@ -167,7 +170,18 @@ This function is not consistent with the rest of the script:
 - do we want to log all the output? Then pipe to the `log` function, it was done on purpose;
 - are we not interested in the output of the `fuser` command? Well, then discard it: `&> /dev/null`
 
-The `return` statement is completely redundant, again. 
+The `return` statement is completely redundant, again.
+
+If you think the function itself is redundant, though, think twice: `if is_in_use "$src"; ...` reads 
+way better than `if /sbin/fuser -s $src &> /dev/null; ...`, and if you wanted to change the implementation 
+of the `is_in_use` function, you would not need to change the places where it's used (provided that the 
+semantics of it stayed the same). 
+
+Parameter expansion, however, is incorrect: `"$@"` should be used in this case in place of `$*` - it may not be 
+important in _this_ specific case, given how the function is used (and given the fact that the `$src` argument
+passed to it is unquoted, which is another problem entirely), but writing a function in the correct way _upfront_ makes 
+it easier to move it to a shared library later, if needed. Not to mention the fact that habits stick, 
+so they better be _good_ habits, rather than _bad_ habits. Use `"$@"` (quoted, always). 
 
 
 ## \#7 Can you spot the bug?
@@ -195,7 +209,7 @@ Here we go, again:
   especially if you name a function in the proper way, and you use it in the place of the `<command>`. 
 
 Speaking of which, if you want to have access to a bunch of ready-made predicates you can source and use in your scripts, 
-check out my newsletter: 
+check out the predicates you can find in my toolkit: 
 
 
 {{< book-hook >}}
@@ -287,6 +301,8 @@ find $dirlogs -type f | perl -ne 'print unless /^.*\/.+?\.\d{4}-\d{2}-\d{2}\..*$
 done
 ```
 
+And, then, there are the comments...
+
 ![Comments everywhere](/images/comments_everywhere.png)
 
 
@@ -294,7 +310,7 @@ I don't even have words for this.
 
 No, I lied, I have: OMG 🙈 
 
-Let's see what sins we have committed here: 
+Let's see what sins I have committed here: 
 1. comments, comments everywhere. There are at least 3 different ways we could have avoided those comments, 
    but the bottom line is always the same: "Use the functions, Luke!";
 2. `find | perl | grep` - I should have thrown in also `awk` and `sed` just to make it complete. A plain `find`
@@ -304,13 +320,21 @@ Let's see what sins we have committed here:
    `while read file; do ... ; done < <(find_logs_not_rotated_yet)`
 4. wrapping the 3 commented lines in their own functions would have spared us the disgrace of placing those three comments inline;
 5. second bonus: wrapping those 3 functions into a new function and calling it like this: 
-   `rename "$file" "$(get_rotated_name_for "$file")"`
+   `rename "$file" "$(get_rotated_name_for "$file")"` would make the intent way more clear. The implementation details can go in the 
+   function;
 6. unquoted variables complete the list of deadly sins, here. It's true that the naming conventions of log files in this context 
    _imply_ they won't contain spaces or special characters, but why risking, when the cost is a mere `""` around variables?? 
+7. `basename`, `dirname`, `perl`, `grep`: a lot of command substitution going on here, where Bash syntax would have done equally well, 
+   and would have saved some subprocess spawning; to make this worse, I used backticks instead of `$(...)` for the command substitution. 
 
 
+## And so on, and so forth...
 
+The rest of the script is a repetition of the sins above: the last two blocks of code strongly resemble the previous one, 
+with an additional `if/else` that could have been skipped by making a clever use of a checker function in combination with 
+`continue` (e.g. `warn_if_in_use && continue`)
 
+```bash
 # Step 3: look for all uncompressed files in $dirlogs and compress them
 info "proceeding with compression of files not yet compressed"
 today="`date +%Y-%m-%d`"
@@ -345,6 +369,49 @@ find $dirlogs -type f -mtime +$num | while read oldfile; do
 done
 ```
 
+
+## Conclusions
+
+In conclusion, the script `# MAIN` block should have read like: 
+
+```bash
+
+# MAIN 
+
+print_header
+rotate_catalina
+rotate_other_logs
+compress_rotated_logs
+cleanup_old_logs
+
+```
+
+This is the highest level of abstraction: at this level, the code should only tell the reader what's happening - at a bird's eye view. 
+
+Then, each function should tell its own story, calling other functions, and so on and so forth, until we reach the lowest-level functions, that deal with 
+the real commands and statements, and should not be longer than 3-5 lines at most. 
+
+This is how you make the code speak for itself, and how you factor it in smaller and smaller chunks, until you get a collection of reusable pieces 
+of code, that you can finally export into shared files that you can (re)use across multiple scripts. 
+
+I understand this is perhaps not always achievable - I've been in places where each script must be self-contained and you 
+can't rely on much infrastructure - but it's still the foundation of a mindset that allows you to write clear, clean, maintainable (and testable) code. 
+
+
+---
+
+In the next episodes, we'll start to put all of this into practice, until this script will have become a 
+small piece of craft we will be produd of (and we'll want to show grandma!). Stay tuned! 
+
+And, in the meantime, check out the toolkit! 
+
+See ya next time!
+
+
+{{< book-hook >}}
+
+ 
+---
 
 
 ## The whole thing
